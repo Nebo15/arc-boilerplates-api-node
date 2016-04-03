@@ -19,7 +19,7 @@ See install instructions for ```arc``` cli tool.
 - Express.js as API framework.
 - Babel.js for ES2015 support.
 - ```.travis.yaml``` to run tests on [Travis-CI](https://travis-ci.org/).
-- JSCS, ESLint and Istanbul to control code quality.
+- JSCS, ESLint (with [Babel-ESLint](https://github.com/babel/babel-eslint)) and Istanbul to control code quality.
 - Mocha for tests.
 - Pre-commit hook with code quality tools and tests.
 - Vagrantfile to run pojects locally.
