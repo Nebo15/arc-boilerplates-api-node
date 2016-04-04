@@ -30,7 +30,3 @@ app.use(controllers);
 app.listen(config.server.port, function() {
   console.log('Listening on port ' + config.server.port)
 });
-
-// We can export fields for docs!
-// import {ViewStructure as UserViewStructure} from './views/user.view.js';
-// console.log(UserViewStructure);
