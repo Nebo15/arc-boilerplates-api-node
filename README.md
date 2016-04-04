@@ -27,3 +27,6 @@ See install instructions for ```arc``` cli tool.
 - Node.js recommended project structure.
 - A set of useful node-scipts in ```package.json```.
 - Some other common Node.js dependencies (database drivers, http client, etc.)
+- http://nodemon.io/
+- https://github.com/node-inspector/node-inspector
+- ```.gitignore```
