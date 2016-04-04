@@ -1,11 +1,9 @@
-var express = require('express')
-  , router = express.Router()
+import express from 'express';
 
-router.use('/comments', require('./comments'))
-router.use('/users', require('./users'))
+let router = express.Router();
 
 router.get('/', function(req, res) {
-  res.render('index')
-})
+  res.render('user', {"id": 123, name: "Test", avatar: "http://link"});
+});
 
-module.exports = router
+export default router;

@@ -1,2 +1,38 @@
-.DS_*
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+*.zip
+
+# Keep empty directories
+!.gitkeep
+
+# API keys, local overrides and secrets
+.override.js
+
+# Dependency directory
 node_modules
+bower_components
+
+# Editors
+.idea
+*.iml
+*.sublime-project
+*.sublime-workspace
+atlassian-ide-plugin.xml
+
+# OS Metadata
+.DS_*
+Thumbs.db
+
+# Compass
+.sass-cache/
+
+# Processed code
+www/
+dist/
