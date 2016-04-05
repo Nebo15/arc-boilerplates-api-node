@@ -7,6 +7,7 @@ import lusca from 'lusca';
 import validator from 'express-validator';
 import fs from 'fs';
 import logger from 'morgan';
+import bugsnag from 'bugsnag';
 
 // Override configs from config.override.js
 try {
@@ -14,6 +15,7 @@ try {
   extend(config, config_override.default || {});
 } catch(ex) {}
 
+bugsnag.register(config.bugsnag.apiKey);
 // Init our APP
 let app = express();
 
@@ -21,6 +23,9 @@ let app = express();
 app.engine('view.js', APIViewEngine);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'view.js');
+
+app.use(bugsnag.requestHandler);
+app.use(bugsnag.errorHandler);
 
 // Parse request body
 app.use(bodyParser.json())
