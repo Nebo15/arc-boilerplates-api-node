@@ -3,6 +3,9 @@ export default {
   server: {
     port: 3001
   },
+  acceptedContentTypes: [
+    'application/json'
+  ],
   bugsnag: {
     apiKey: "your-api-key-here"
   },

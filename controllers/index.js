@@ -1,6 +1,9 @@
 import express from 'express';
-
+import contentType from '../middlewares/contentType'
 let router = express.Router();
+
+router.route('*')
+  .all(contentType);
 
 router.route('/')
     .get(function (req, res, next) {

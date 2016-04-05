@@ -5,6 +5,9 @@ var config = {
   server: {
     port: process.env.PORT || 3000
   },
+  acceptedContentTypes: [
+    'application/json'
+  ],
   bugsnag: {
     apiKey: "your-api-key-here"
   },

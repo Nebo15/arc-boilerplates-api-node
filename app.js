@@ -37,16 +37,31 @@ app.use(lusca.xssProtection(true));
 app.use(validator());
 
 // Dev environment tooling
-if(config.env === "sandbox") {
+if (config.env === "sandbox") {
   console.log("This is 'sandbox' environment, starting dev tools.");
   app.use(require('errorhandler')());
   app.use(logger('dev'));
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.json({
+      message: err.message,
+      error: err
+    });
+  });
 } else {
   let accessLogStream = fs.createWriteStream(__dirname + '/var/logs/access.log', {flags: 'a'})
   app.use(logger('short', {stream: accessLogStream}));
+  // production error handler
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.json({
+      message: err.message,
+      error: {}
+    });
+  });
 }
 
 // Start the server
 app.listen(config.server.port, function () {
-    console.log('Listening on port ' + config.server.port)
+  console.log('Listening on port ' + config.server.port)
 });
