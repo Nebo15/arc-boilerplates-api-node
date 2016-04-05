@@ -48,6 +48,6 @@ if(config.env === "sandbox") {
 }
 
 // Start the server
-app.listen(config.server.port, function() {
-  console.log('Listening on port ' + config.server.port)
+app.listen(config.server.port, function () {
+    console.log('Listening on port ' + config.server.port)
 });

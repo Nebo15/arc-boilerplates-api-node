@@ -19,5 +19,5 @@ export let View_structure = {
 };
 
 export default function(user) {
-  return exportObjectFields(user, view_structure);
+  return exportObjectFields(user, View_structure);
 }
