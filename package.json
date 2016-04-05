@@ -4,7 +4,7 @@
   "description": "Node.js (Express.js + MongoDB boilerplate) for Arkenstone \"arc\" cli tool.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon --exec babel-node --presets=es2015 -- app.js",
     "test": "node_modules/.bin/mocha tests/**"
   },
   "keywords": [
@@ -32,7 +32,8 @@
     "errorhandler": "^1.4.3",
     "lodash": "^4.8.2",
     "mocha": "^2.2.4",
-    "should": "^6.0.1"
+    "should": "^6.0.1",
+    "nodemon": "^1.9.1"
   },
   "babel": {
     "presets": [
