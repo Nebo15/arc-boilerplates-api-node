@@ -36,3 +36,4 @@ Thumbs.db
 # Processed code
 www/
 dist/
+newrelic_agent.log

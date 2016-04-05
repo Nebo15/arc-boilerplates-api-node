@@ -1,19 +1,13 @@
+import newrelic from 'newrelic'; //do not remove this line, it starting newrelic
 import express from 'express';
 import bodyParser from 'body-parser';
 import APIViewEngine from './helpers/APIViewEngine.js';
-import extend from 'extend';
 import config from './config/config.js';
 import lusca from 'lusca';
 import validator from 'express-validator';
 import fs from 'fs';
 import logger from 'morgan';
 import bugsnag from 'bugsnag';
-
-// Override configs from config.override.js
-try {
-  var config_override = require('./config/config.override.js');
-  extend(config, config_override.default || {});
-} catch(ex) {}
 
 bugsnag.register(config.bugsnag.apiKey);
 // Init our APP
