@@ -1,5 +1,5 @@
 import newrelic from 'newrelic'; //do not remove this line, it starting newrelic
-import express from 'express';
+import express from 'express' ;
 import bodyParser from 'body-parser';
 import APIViewEngine from './helpers/APIViewEngine.js';
 import config from './config/config.js';
@@ -22,8 +22,8 @@ app.use(bugsnag.requestHandler);
 app.use(bugsnag.errorHandler);
 
 // Parse request body
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Include controllers
 import controllers from "./controllers";
@@ -42,10 +42,10 @@ if (config.env === "sandbox") {
   app.use(require('errorhandler')());
   app.use(logger('dev'));
 } else {
-  let accessLogStream = fs.createWriteStream(__dirname + '/var/logs/access.log', {flags: 'a'})
+  let accessLogStream = fs.createWriteStream(__dirname + '/var/logs/access.log', {flags: 'a'});
   app.use(logger('short', {stream: accessLogStream}));
   // production error handler
-  app.use(function(err, req, res, next) {
+  app.use(function (err, req, res, next) {
     var status = err.status || 500;
     res.status(status);
     res.json({
@@ -61,5 +61,5 @@ if (config.env === "sandbox") {
 
 // Start the server
 app.listen(config.server.port, function () {
-  console.log('Listening on port ' + config.server.port)
+  console.log('Listening on port ' + config.server.port);
 });

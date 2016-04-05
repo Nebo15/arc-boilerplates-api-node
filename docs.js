@@ -21,8 +21,7 @@ for(let route_id in controllers.stack) {
   if(route_view_name) {
     console.log("View: ");
 
-    let route_view_struct = require('./views/' + route_view_name + '.view.js').view_structure;
-
+    let route_view_struct = require('./views/' + route_view_name + '.view.js').viewStructure;
     console.log('  Field Name | Type | Title | Description');
     for (let [key, value] of entries(route_view_struct)) {
       console.log("  " + key + " | " + value.type + " | " + value.title + " | " + value.description);

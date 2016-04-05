@@ -1,13 +1,10 @@
-/**
- * Content-type middleware for checking if current content-type is acceptable on the server
- */
-'use strict';
+//Content-type middleware for checking if current content-type is acceptable on the server
 export default function (req, res, next) {
-  if (req.headers['content-type'] != undefined) {
+  if (req.headers['content-type'] !== undefined) {
     var config = require('../config/config');
     var acceptable = false;
     for (var i = 0; i < config.default.acceptedContentTypes.length; i++) {
-      if (config.default.acceptedContentTypes[i] == req.headers['content-type']) {
+      if (config.default.acceptedContentTypes[i] === req.headers['content-type']) {
         acceptable = true;
       }
     }
@@ -17,5 +14,5 @@ export default function (req, res, next) {
       return next(err);
     }
   }
-  next();
+  return next();
 }

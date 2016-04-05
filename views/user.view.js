@@ -1,6 +1,6 @@
 import exportObjectFields from '../helpers/exportObjectFields.js';
 
-export let View_structure = {
+export let viewStructure = {
   id: {
     title: "User ID",
     type: "MongoID",
@@ -18,6 +18,6 @@ export let View_structure = {
   }
 };
 
-export default function(user) {
-  return exportObjectFields(user, View_structure);
+export default function (user) {
+  return exportObjectFields(user, viewStructure);
 }

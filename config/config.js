@@ -12,17 +12,19 @@ var config = {
     apiKey: "your-api-key-here"
   },
   newrelic: {
-    app_name: ['My Application'],
-    license_key: 'license key here',
+    appName: ['My Application'],
+    licenseKey: "license key here",
     logging: {
-      level: 'info'
+      level: "info"
     }
   }
 };
 
 try {
-  var config_override = require('./config.override.js');
-  extend(config, config_override.default || {});
-} catch(ex) {}
+  var configOverride = require('./config.override.js');
+  extend(config, configOverride.default || {});
+} catch(ex) {
+  /** */
+}
 
-export default config
+export default config;

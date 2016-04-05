@@ -10,10 +10,10 @@ export default {
     apiKey: "your-api-key-here"
   },
   newrelic: {
-    app_name: ['My Application'],
-    license_key: 'license key here',
+    appName: ['My Application'],
+    licenseKey: 'license key here',
     logging: {
       level: 'info'
     }
   }
-}
+};

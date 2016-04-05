@@ -1,0 +1,27 @@
+{
+  "extends": "eslint-config-defaults/configurations/walmart/es6-node",
+  "rules": {
+    "strict": [2, "global"],
+    "no-magic-numbers": 0,
+    "max-len": 0,
+    "max-params": 0,
+    "quotes" : 0,
+    "no-labels": 0,
+    "no-empty-label": 0,
+    "space-before-keywords": 0,
+    "prefer-template": 0,
+    "no-console": 0,
+    "no-var": 0,
+    "no-unused-vars": 0,
+    "global-require": 0,
+    "prefer-const": 0,
+    "space-return-throw-case": 0,
+    "space-after-keywords": 0,
+    "no-arrow-condition": 0,
+    "no-undef": 0,
+    "filenames/filenames": 0,
+    "new-cap": 0,
+    "prefer-arrow-callback": 0
+
+  }
+}
