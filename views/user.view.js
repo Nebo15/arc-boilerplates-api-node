@@ -1,6 +1,6 @@
 import exportObjectFields from '../helpers/exportObjectFields.js';
 
-export let view_structure = {
+export let View_structure = {
   id: {
     title: "User ID",
     type: "MongoID",
