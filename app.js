@@ -41,18 +41,6 @@ if (config.env === "sandbox") {
   console.log("This is 'sandbox' environment, starting dev tools.");
   app.use(require('errorhandler')());
   app.use(logger('dev'));
-  app.use(function(err, req, res, next) {
-    var status = err.status || 500;
-    res.status(status);
-    res.json({
-      meta: {
-        code: status,
-        message: err.message,
-        error: {}
-      },
-      data: {}
-    });
-  });
 } else {
   let accessLogStream = fs.createWriteStream(__dirname + '/var/logs/access.log', {flags: 'a'})
   app.use(logger('short', {stream: accessLogStream}));
