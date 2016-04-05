@@ -42,10 +42,15 @@ if (config.env === "sandbox") {
   app.use(require('errorhandler')());
   app.use(logger('dev'));
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
+    var status = err.status || 500;
+    res.status(status);
     res.json({
-      message: err.message,
-      error: err
+      meta: {
+        code: status,
+        message: err.message,
+        error: {}
+      },
+      data: {}
     });
   });
 } else {
@@ -53,10 +58,15 @@ if (config.env === "sandbox") {
   app.use(logger('short', {stream: accessLogStream}));
   // production error handler
   app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
+    var status = err.status || 500;
+    res.status(status);
     res.json({
-      message: err.message,
-      error: {}
+      meta: {
+        code: status,
+        message: err.message,
+        error: {}
+      },
+      data: {}
     });
   });
 }
