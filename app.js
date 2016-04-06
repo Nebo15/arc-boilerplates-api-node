@@ -1,4 +1,5 @@
 import newrelic from 'newrelic'; //do not remove this line, it starting newrelic
+import db from './helpers/db'; //db connection
 import express from 'express' ;
 import bodyParser from 'body-parser';
 import APIViewEngine from './helpers/APIViewEngine.js';
@@ -8,11 +9,14 @@ import validator from 'express-validator';
 import fs from 'fs';
 import logger from 'morgan';
 import bugsnag from 'bugsnag';
+import path from 'path';
+import passport from 'passport';
 
 bugsnag.register(config.bugsnag.apiKey);
 // Init our APP
 let app = express();
 
+app.use(passport.initialize());
 // Define our API View Engine
 app.engine('view.js', APIViewEngine);
 app.set('views', __dirname + '/views');
@@ -26,8 +30,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Include controllers
-import controllers from "./controllers";
-app.use(controllers);
+let controllerList = {};
+fs.readdirSync(path.join(__dirname, "controllers")).forEach(function (file) {
+  if (file.substr(-3) === ".js") {
+    let basePath = path.basename(file, ".js");
+    let Controller = require(`./controllers/${file}`);
+    controllerList[basePath] = new Controller.default(basePath);
+    app.use(controllerList[basePath].getPrefix(), controllerList[basePath].router);
+  }
+});
+
+//app.use(controllers);
 
 // Security features
 app.use(lusca.xframe('SAMEORIGIN'));

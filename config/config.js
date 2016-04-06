@@ -17,6 +17,9 @@ var config = {
     logging: {
       level: "info"
     }
+  },
+  db: {
+    connection: 'mongodb://localhost:27017/test'
   }
 };
 

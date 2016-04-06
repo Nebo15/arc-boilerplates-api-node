@@ -37,3 +37,4 @@ Thumbs.db
 www/
 dist/
 newrelic_agent.log
+.vagrant
