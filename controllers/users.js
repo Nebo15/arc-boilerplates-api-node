@@ -3,8 +3,8 @@ import contentType from '../middlewares/contentType';
 import UserModel from '../models/user';
 
 export default class UserController extends Controller {
-  constructor(basePath) {
-    super(basePath);
+  constructor(basePath, config) {
+    super(basePath, config);
     super.setPrefix('');
 
     // Route definitions for this controller

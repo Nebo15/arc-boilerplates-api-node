@@ -2,8 +2,8 @@ import {Controller} from "../helpers/controller";
 import contentType from '../middlewares/contentType';
 
 export default class IndexController extends Controller {
-  constructor(basePath) {
-    super(basePath);
+  constructor(basePath, config) {
+    super(basePath, config);
     super.setPrefix('');
 
     // Route definitions for this controller
@@ -20,7 +20,7 @@ export default class IndexController extends Controller {
           this.validate(validationRules, req.body)
             .then(
               () => {
-                res.json("success");
+                res.json(this.config);
               },
               (err) => {
                 res.json(err);
