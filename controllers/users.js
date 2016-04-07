@@ -15,10 +15,10 @@ export default class UserController extends Controller {
         req.body.password,
         function (err, user) {
           if (err) {
-            return res.status(500).json({err: err});
+            res.status(500).json({error: err});
           }
           user.save(function (err, user) {
-              res.status(200).json({status: 'Registration Successful!'});
+            res.status(200).json({status: 'Registration Successful!'});
           });
         });
     });

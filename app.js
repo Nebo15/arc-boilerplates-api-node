@@ -16,6 +16,9 @@ bugsnag.register(config.bugsnag.apiKey);
 // Init our APP
 let app = express();
 
+//Connect to the database
+db.connect();
+
 app.use(passport.initialize());
 // Define our API View Engine
 app.engine('view.js', APIViewEngine);

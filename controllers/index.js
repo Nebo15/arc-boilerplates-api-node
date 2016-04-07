@@ -9,9 +9,25 @@ export default class IndexController extends Controller {
     // Route definitions for this controller
 
     this.router.all("*", contentType);
-    this.router.get("/", (req, res) => {
-      res.render('user', {"id": 123, name: "Test", avatar: "http://link", hiddenField: "can't see me!"});
-    });
+    this.router.route("/")
+      .get(
+        (req, res) => {
+          res.render('user', {"id": 123, name: "Test", avatar: "http://link", hiddenField: "can't see me!"});
+        })
+      .post(
+        (req, res) => {
+          let validationRules = this.validator.isObject().withRequired('postparam', this.validator.isNumber());
+          this.validate(validationRules, req.body)
+            .then(
+              () => {
+                res.json("success");
+              },
+              (err) => {
+                res.json(err);
+              }
+            );
+        });
+
     this.router.route("/test")
       .all((req, res, next) => {
         let a = "Route description";
