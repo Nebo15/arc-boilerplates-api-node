@@ -12,18 +12,19 @@ import bugsnag from 'bugsnag';
 import path from 'path';
 import passport from 'passport';
 
+// Register BugSnag error handler
 bugsnag.register(config.bugsnag.apiKey);
+
 // Init our APP
 let app = express();
 
+// Authorization Middleware
 app.use(passport.initialize());
+
 // Define our API View Engine
 app.engine('view.js', APIViewEngine);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'view.js');
-
-app.use(bugsnag.requestHandler);
-app.use(bugsnag.errorHandler);
 
 // Parse request body
 app.use(bodyParser.json());
@@ -40,8 +41,6 @@ fs.readdirSync(path.join(__dirname, "controllers")).forEach(function (file) {
   }
 });
 
-//app.use(controllers);
-
 // Security features
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
@@ -57,7 +56,11 @@ if (config.env === "sandbox") {
 } else {
   let accessLogStream = fs.createWriteStream(__dirname + '/var/logs/access.log', {flags: 'a'});
   app.use(logger('short', {stream: accessLogStream}));
-  // production error handler
+  // Integrate BugSnag error handling Middlewares
+  app.use(bugsnag.requestHandler);
+  app.use(bugsnag.errorHandler);
+
+  // Production Error Handler
   app.use(function (err, req, res, next) {
     var status = err.status || 500;
     res.status(status);
