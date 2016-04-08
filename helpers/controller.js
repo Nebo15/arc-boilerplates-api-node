@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import validator from 'node-validator';
+import contentType from '../middlewares/contentType';
 
 export class Controller {
   constructor(basePath, config) {
@@ -9,6 +10,8 @@ export class Controller {
     this._router.use(bodyParser.json());
     this._validator = validator;
     this._config = config;
+
+    this.router.all("*", contentType);
   }
 
   setPrefix(prefix) {

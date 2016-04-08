@@ -88,7 +88,4 @@ if (config.env === "sandbox") {
   });
 }
 
-// Start the server
-app.listen(app.get('config').get('server').port, function () {
-  console.log('Listening on port ' + app.get('config').get('server').port);
-});
+export default app;
