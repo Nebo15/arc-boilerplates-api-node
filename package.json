@@ -23,7 +23,6 @@
     "body-parser": "^1.12.3",
     "bugsnag": "^1.7.0",
     "express": "^4.13.4",
-    "express-validator": "^2.19.2",
     "extend": "^3.0.0",
     "http": "0.0.0",
     "immutable": "^3.7.6",

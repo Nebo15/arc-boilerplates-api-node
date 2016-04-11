@@ -2,16 +2,15 @@ import newrelic from 'newrelic'; //do not remove this line, it starting newrelic
 import db from './helpers/db';
 import express from 'express' ;
 import bodyParser from 'body-parser';
-import APIViewEngine from './helpers/APIViewEngine.js';
-import configuration from './config/config.js';
+import APIViewEngine from './helpers/APIViewEngine';
+import configuration from './config/config';
 import lusca from 'lusca';
-import validator from 'express-validator';
 import fs from 'fs';
 import logger from 'morgan';
 import bugsnag from 'bugsnag';
-import path from 'path';
 import passport from 'passport';
 import Immutable from 'immutable';
+import router from './routes';
 
 //immutable config
 let config = Immutable.Map(configuration);
@@ -38,31 +37,15 @@ app.set('view engine', 'view.js');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Include controllers
-let controllerList = {};
-
-fs.readdirSync(
-  path.join(__dirname, "controllers")).forEach((file) => {
-    if (file.substr(-3) === ".js") {
-
-      let basePath = path.basename(file, ".js");
-      let Controller = require(`./controllers/${file}`);
-
-      controllerList[basePath] = new Controller.default(basePath, app.get('config'));
-      app.use(controllerList[basePath].getPrefix(), controllerList[basePath].router);
-    }
-  }
-);
-
 // Security features
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 
-// Attack Express Validator
-app.use(validator());
+//Include controllers
+app.use('', router);
 
 // Dev environment tooling
-if (config.env === "sandbox") {
+if (app.get('config').get('env') === "sandbox") {
   console.log("This is 'sandbox' environment, starting dev tools.");
   app.use(require('errorhandler')());
   app.use(logger('dev'));
