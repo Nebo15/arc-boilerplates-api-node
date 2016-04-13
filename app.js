@@ -10,6 +10,7 @@ import logger from 'morgan';
 import bugsnag from 'bugsnag';
 import router from './routes';
 import {oauth2} from './helpers/oauth2';
+import {answerStructure} from './helpers/response';
 
 // Init our APP
 let app = express();
@@ -36,6 +37,9 @@ app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 
 app.use(oauth2.errorHandler());
+
+//Use correct answer structure
+app.use(answerStructure);
 
 //Include controllers
 app.use('', router);
