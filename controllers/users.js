@@ -1,16 +1,17 @@
-import UserModel from '../models/user';
+import * as user from '../models/user';
 
 export let createUser = (req, res) => {
-  UserModel.register(
-    new UserModel({username: req.body.username}),
+  user.userModel.register(
+    new user.userModel({username: req.body.username}),
     req.body.password,
     (err, user) => {
       if (err) {
         res.status(500).json({error: err});
+      } else {
+        user.save((err, user) => {
+          res.status(200).json({status: 'Registration Successful!'});
+        });
       }
-      user.save((err, user) => {
-        res.status(200).json({status: 'Registration Successful!'});
-      });
     }
   );
 };

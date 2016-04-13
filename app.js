@@ -3,17 +3,14 @@ import db from './helpers/db';
 import express from 'express' ;
 import bodyParser from 'body-parser';
 import APIViewEngine from './helpers/APIViewEngine';
-import configuration from './config/config';
+import config from './config/config';
 import lusca from 'lusca';
 import fs from 'fs';
 import logger from 'morgan';
 import bugsnag from 'bugsnag';
-import passport from 'passport';
-import Immutable from 'immutable';
 import router from './routes';
+import {oauth2} from './helpers/oauth2';
 
-//immutable config
-let config = Immutable.Map(configuration);
 // Init our APP
 let app = express();
 
@@ -24,9 +21,6 @@ bugsnag.register(app.get('config').get('bugsnag').apiKey);
 
 //Connect to the database
 db.connect();
-
-// Authorization Middleware
-app.use(passport.initialize());
 
 // Define our API View Engine
 app.engine('view.js', APIViewEngine);
@@ -40,6 +34,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Security features
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
+
+app.use(oauth2.errorHandler());
 
 //Include controllers
 app.use('', router);

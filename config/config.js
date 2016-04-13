@@ -1,4 +1,5 @@
 import extend from 'extend';
+import Immutable from 'immutable';
 
 var config = {
   env: "sandbox",
@@ -20,14 +21,15 @@ var config = {
   },
   db: {
     connection: 'mongodb://localhost:27017/test'
-  }
+  },
+  oauth2Grants: ['password', 'refresh_token']
 };
 
 try {
   var configOverride = require('./config.override.js');
   extend(config, configOverride.default || {});
-} catch(ex) {
+} catch (ex) {
   /** */
 }
 
-export default config;
+export default Immutable.Map(config);
