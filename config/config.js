@@ -3,6 +3,7 @@ import Immutable from 'immutable';
 
 var config = {
   env: "sandbox",
+  views: __dirname + '/../views',
   server: {
     port: process.env.PORT || 3000
   },

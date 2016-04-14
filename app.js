@@ -2,7 +2,6 @@ import newrelic from 'newrelic'; //do not remove this line, it starting newrelic
 import db from './helpers/db';
 import express from 'express' ;
 import bodyParser from 'body-parser';
-import APIViewEngine from './helpers/APIViewEngine';
 import config from './config/config';
 import lusca from 'lusca';
 import fs from 'fs';
@@ -10,7 +9,7 @@ import logger from 'morgan';
 import bugsnag from 'bugsnag';
 import router from './routes';
 import {oauth2} from './helpers/oauth2';
-import {answerStructure} from './helpers/response';
+import {responseStructure} from './helpers/response';
 
 // Init our APP
 let app = express();
@@ -23,11 +22,6 @@ bugsnag.register(app.get('config').get('bugsnag').apiKey);
 //Connect to the database
 db.connect();
 
-// Define our API View Engine
-app.engine('view.js', APIViewEngine);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'view.js');
-
 // Parse request body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -38,8 +32,8 @@ app.use(lusca.xssProtection(true));
 
 app.use(oauth2.errorHandler());
 
-//Use correct answer structure
-app.use(answerStructure);
+//Use correct response structure
+app.use(responseStructure);
 
 //Include controllers
 app.use('', router);
@@ -58,16 +52,7 @@ if (app.get('config').get('env') === "sandbox") {
 
   // Production Error Handler
   app.use(function (err, req, res, next) {
-    var status = err.status || 500;
-    res.status(status);
-    res.json({
-      meta: {
-        code: status,
-        message: err.message,
-        error: {}
-      },
-      data: {}
-    });
+    res.sendJsonError(err.status, err.message);
   });
 }
 

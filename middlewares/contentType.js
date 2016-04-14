@@ -1,10 +1,10 @@
+import config from './../config/config';
 //Content-type middleware for checking if current content-type is acceptable on the server
 export default (req, res, next) => {
   if (req.headers['content-type'] !== undefined) {
-    let config = require('../config/config');
     let acceptable = false;
-    for (let i = 0; i < config.default.acceptedContentTypes.length; i++) {
-      if (config.default.acceptedContentTypes[i] === req.headers['content-type']) {
+    for (let i = 0; i < config.get('acceptedContentTypes').length; i++) {
+      if (config.get('acceptedContentTypes')[i] === req.headers['content-type']) {
         acceptable = true;
       }
     }

@@ -2,7 +2,7 @@ import validator from 'node-validator';
 import {validate} from '../helpers/validator';
 
 export let getIndex = (req, res) => {
-  res.render('user', {"id": 123, name: "Test", avatar: "http://link", hiddenField: "can't see me!"});
+  res.renderJson('user', {"id": 123, name: "Test", avatar: "http://link", hiddenField: "can't see me!"});
 };
 
 export let postIndex = (req, res) => {
@@ -10,10 +10,12 @@ export let postIndex = (req, res) => {
   validate(validationRules, req.body)
     .then(
       () => {
-        res.json(req.app.get('config'));
+        res.sendJson(req.app.get('config'));
       },
       (err) => {
-        res.json(err);
+        res.addError(422, 'validation_error', 'some_message');
+        res.addInvalidFields(err);
+        res.renderJson();
       }
     );
 };

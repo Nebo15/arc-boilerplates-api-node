@@ -5,7 +5,7 @@ export default function APIViewEngine(filePath, options, callback) {
     if(err) {
       return callback(err);
     } else {
-      var viewer = require(filePath).default;
+      let viewer = require(filePath).default;
       return callback(null, viewer(options));
     }
   });
