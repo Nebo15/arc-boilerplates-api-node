@@ -13,15 +13,33 @@
  * back-portability pain in request-response gates.
  */
 
- // TODO DEST GATES! From newest to oldest! from x-api-version to current-version
-
 import fs from 'fs';
 import moment from 'moment';
 import config from './../config/config';
 import async from 'async';
 
-// Cache FS operation
+// Cache FS operations
 let gates_cache = {};
+
+function getLatestAPIVersion() {
+  return moment().format("YYYY-MM-DD");
+}
+
+// TODO: Move this to a separate middleware and return appropriate json error
+function getRequestedVersion(req) {
+  let version_header = config.get('gates').get('versionHeader');
+  let version = version_header ? req.headers[version_header.toLowerCase()] : undefined;
+
+  if (version !== undefined) {
+    if(!version.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/g)) {
+      throw "Incorrect API version.";
+    }
+
+    return version;
+  }
+
+  return getLatestAPIVersion();
+}
 
 function requireGate(gate, dir) {
   dir = dir || config.get('gates').get('dir');
@@ -35,7 +53,10 @@ function getActiveGates(base_version) {
 
   let gates_dir = config.get('gates').get('dir');
   let gates_list = [];
-  let current_moment = moment(base_version);
+  let latest_moment = moment(getLatestAPIVersion());
+  let base_moment = moment(base_version);
+
+  console.log(base_version);
 
   let files = fs.readdirSync(gates_dir) || [];
   if(files && files.length > 0) {
@@ -45,7 +66,10 @@ function getActiveGates(base_version) {
         continue;
       }
 
-      if(current_moment.isAfter(moment(gate_name[0]))) {
+      let gate_moment = moment(gate_name[0]);
+
+      console.log(gate_moment.format("YYYY-MM-DD"), latest_moment.format("YYYY-MM-DD"));
+      if(gate_moment.isBetween(base_moment, latest_moment)) {
         gates_list.push(gate_name[0]);
       }
     }
@@ -54,7 +78,7 @@ function getActiveGates(base_version) {
   gates_list.sort((lhs, rhs) => {
     lhs = moment(lhs);
     rhs = moment(rhs);
-    return lhs.isAfter(rhs) ? 1 : lhs.isBefore(rhs) ? -1 : 0;
+    return lhs.isAfter(rhs) ? -1 : lhs.isBefore(rhs) ? 1 : 0;
   });
 
   let gates = gates_list.map((gate) => {
@@ -78,24 +102,6 @@ function getActiveGates(base_version) {
   return gates;
 }
 
-function getLatestAPIVersion() {
-  return moment().format("YYYY-MM-DD");
-}
-
-function getRequestedVersion(req) {
-  let version_header = config.get('gates').get('versionHeader');
-  let version = req.headers[version_header];
-
-  if (req.headers[version_header] !== undefined) {
-    if(!version.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/g)) {
-      throw "Incorrect API version.";
-    }
-    return req.headers[version_header];
-  } else {
-    return getLatestAPIVersion();
-  }
-}
-
 export class VersionGate {
   static requestMutator(req, cb) {
     return cb(null);
@@ -103,6 +109,10 @@ export class VersionGate {
 
   static responseMutator(data, res, cb) {
     return cb(null);
+  }
+
+  static getChangelog() {
+    return "Undescribed breaking change.";
   }
 }
 
