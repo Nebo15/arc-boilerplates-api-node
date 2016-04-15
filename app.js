@@ -42,17 +42,23 @@ app.use('', router);
 if (app.get('config').get('env') === "sandbox") {
   console.log("This is 'sandbox' environment, starting dev tools.");
   app.use(logger('dev'));
+
+  // Log errors in console
+  app.use(function (err, req, res, next) {
+    res.sendJsonError(err.status, err.message);
+    next(err);
+  });
 } else {
   let accessLogStream = fs.createWriteStream(__dirname + '/var/logs/access.log', {flags: 'a'});
   app.use(logger('short', {stream: accessLogStream}));
   // Integrate BugSnag error handling Middlewares
   app.use(bugsnag.requestHandler);
   app.use(bugsnag.errorHandler);
-}
 
-// Production Error Handler
-app.use(function (err, req, res, next) {
-  res.sendJsonError(err.status, err.message);
-});
+  // Production Error Handler
+  app.use(function (err, req, res, next) {
+    res.sendJsonError(err.status, err.message);
+  });
+}
 
 export default app;
