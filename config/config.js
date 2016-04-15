@@ -14,11 +14,15 @@ var config = {
     apiKey: "your-api-key-here"
   },
   newrelic: {
-    appName: ['My Application'],
+    appName: 'My Application',
     licenseKey: "license key here",
     logging: {
       level: "info"
     }
+  },
+  gates: {
+    versionHeader: "X-API-Version",
+    dir: "./gates"
   },
   db: {
     connection: 'mongodb://localhost:27017/test'
@@ -33,4 +37,4 @@ try {
   /** */
 }
 
-export default Immutable.Map(config);
+export default Immutable.fromJS(config);

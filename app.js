@@ -17,7 +17,7 @@ let app = express();
 app.set('config', config);
 
 // Register BugSnag error handler
-bugsnag.register(app.get('config').get('bugsnag').apiKey);
+bugsnag.register(app.get('config').get('bugsnag').get('apiKey'));
 
 //Connect to the database
 db.connect();

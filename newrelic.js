@@ -5,6 +5,6 @@
 import configuration from './config/config.js';
 
 export let config = {
-  app_name: configuration.get('newrelic').appName,
-  license_key: configuration.get('newrelic').licenseKey
+  app_name: configuration.get('newrelic').get('appName'),
+  license_key: configuration.get('newrelic').get('licenseKey')
 };
