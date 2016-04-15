@@ -1,10 +1,11 @@
-import {VersionGate} from './../helpers/gates.js';
+import {VersionGate} from './../helpers/gates';
 
 export default class Gate extends VersionGate {
-  requestModifier(req, cb) {
-    return cb(null, req);
+  static requestMutator(req, cb) {
+    return cb(null);
   }
-  responseModifier(res, cb) {
-    return cb(null, res);
+
+  static responseMutator(data, cb) {
+    return cb(null);
   }
 }

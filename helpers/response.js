@@ -1,4 +1,9 @@
 import viewEngine from './APIViewEngine';
+import {gateResponseMutator} from './../helpers/gates';
+import config from './../config/config';
+
+let views_dir = config.get('views').get('dir');
+let response_mutator = gateResponseMutator();
 
 export let responseStructure = (req, res, next) => {
 
@@ -6,9 +11,11 @@ export let responseStructure = (req, res, next) => {
     if (res.error.type) {
       res.sendJsonError(res.statusCode, res.error);
     } else {
-      viewEngine(res.app.get('config').get('views') + '/' + view + '.view.js', data, (err, data) => {
+      viewEngine(`${views_dir}/${view}.view.js`, data, (err, data) => {
         if (!err) {
-          res.sendJson(data, code);
+          response_mutator(req, data, (err) => {
+            res.sendJson(data, code);
+          });
         }
       });
     }

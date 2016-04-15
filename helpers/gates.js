@@ -8,14 +8,13 @@ let gates_cache = {};
 
 function requireGate(gate, dir) {
   dir = dir || config.get('gates').get('dir');
-  return require(`./../${dir}/${gate}.js`).default;
+  return require(`${dir}/${gate}.js`).default;
 }
 
 function getActiveGates(base_version) {
   if(gates_cache[base_version]) {
     return gates_cache[base_version];
   }
-  console.log('Scan for gates');
 
   let gates_dir = config.get('gates').get('dir');
   let gates_list = [];
@@ -72,7 +71,7 @@ function getRequestedVersion(req) {
 
   if (req.headers[version_header] !== undefined) {
     if(!version.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/g)) {
-      return false;
+      throw "Incorrect API version.";
     }
     return req.headers[version_header];
   } else {
@@ -80,43 +79,70 @@ function getRequestedVersion(req) {
   }
 }
 
-function getGatesByType() {
-  for(let i in gates) {
-    gates[i].requestModifier(req);
-  }
-}
-
 export class VersionGate {
-  requestModifier(req, cb) {
-    return cb(null, req);
+  static requestMutator(req, cb) {
+    return cb(null);
   }
 
-  responseModifier(res, cb) {
-    return cb(null, res);
+  static responseMutator(data, cb) {
+    return cb(null);
   }
 }
 
 export function gateRequestMiddleware() {
   return (req, res, next) => {
     let version = getRequestedVersion(req);
-    if(version === false) {
-      throw "Incorrect API version.";
-    }
 
-    let request_gates = getActiveGates(version).map((g) => {
-      return g.requestModifier ? (cb) => {
-        g.requestModifier(req, cb);
-      } : undefined;
+    // Get list of request mutator functions
+    let request_mutators = getActiveGates(version).map((g) => {
+      if(g.requestMutator) {
+        return (cb) => {
+          g.requestMutator(req, cb);
+        }
+      }
+
+      return undefined;
     }).filter((g) => {
       return g !== undefined;
     });
 
-    async.waterfall(request_gates, (err, res) => {
+    // Apply all mutators
+    async.waterfall(request_mutators, (err) => {
       if(err) {
-        throw "Can't finish all gates."
+        throw "There was en error while applying one of request gates."
       }
 
-      return next();
+      return next(err);
+    });
+  };
+}
+
+export function gateResponseMutator() {
+  return (req, data, done) => {
+    let version = getRequestedVersion(req);
+
+    // Get list of response mutator functions
+    let response_mutators = getActiveGates(version).map((g) => {
+      if(g.responseMutator) {
+        return (cb) => {
+          g.responseMutator(data, cb);
+        }
+      }
+
+      return undefined;
+    }).filter((g) => {
+      return g !== undefined;
+    });
+
+    console.log(response_mutators);
+
+    // Apply all mutators
+    async.waterfall(response_mutators, (err) => {
+      if(err) {
+        throw "There was en error while applying one of response gates."
+      }
+
+      return done(err, data);
     });
   };
 }
