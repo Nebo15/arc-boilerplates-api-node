@@ -84,7 +84,7 @@ export class VersionGate {
     return cb(null);
   }
 
-  static responseMutator(data, cb) {
+  static responseMutator(data, res, cb) {
     return cb(null);
   }
 }
@@ -118,14 +118,14 @@ export function gateRequestMiddleware() {
 }
 
 export function gateResponseMutator() {
-  return (req, data, done) => {
+  return (req, res, data, done) => {
     let version = getRequestedVersion(req);
 
     // Get list of response mutator functions
     let response_mutators = getActiveGates(version).map((g) => {
       if(g.responseMutator) {
         return (cb) => {
-          g.responseMutator(data, cb);
+          g.responseMutator(data, res, cb);
         }
       }
 

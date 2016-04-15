@@ -5,7 +5,7 @@ export default class Gate extends VersionGate {
     return cb(null);
   }
 
-  static responseMutator(data, cb) {
+  static responseMutator(data, res, cb) {
     return cb(null);
   }
 }

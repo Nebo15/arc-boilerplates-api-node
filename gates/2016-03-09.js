@@ -6,7 +6,7 @@ export default class Gate extends VersionGate {
     return cb(null);
   }
 
-  static responseMutator(data, cb) {
+  static responseMutator(data, res, cb) {
     data.user = data.name + "";
     delete data.name;
     return cb(null);

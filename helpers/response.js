@@ -13,7 +13,7 @@ export let responseStructure = (req, res, next) => {
     } else {
       viewEngine(`${views_dir}/${view}.view.js`, data, (err, data) => {
         if (!err) {
-          response_mutator(req, data, (err) => {
+          response_mutator(req, res, data, (err) => {
             res.sendJson(data, code);
           });
         }
