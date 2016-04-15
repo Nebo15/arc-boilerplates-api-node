@@ -3,8 +3,8 @@ import config from './../config/config';
 export default (req, res, next) => {
   if (req.headers['content-type'] !== undefined) {
     let acceptable = false;
-    for (let i = 0; i < config.get('acceptedContentTypes').length; i++) {
-      if (config.get('acceptedContentTypes')[i] === req.headers['content-type']) {
+    for (let i = 0; i < config.get('acceptedContentTypes').count(); i++) {
+      if (config.get('acceptedContentTypes').get(i) === req.headers['content-type']) {
         acceptable = true;
       }
     }

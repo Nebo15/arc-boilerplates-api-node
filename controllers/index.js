@@ -1,21 +1,23 @@
-import validator from 'node-validator';
-import {validate} from '../helpers/validator';
+import * as validation from '../helpers/validator';
 
 export let getIndex = (req, res) => {
   res.renderJson('user', {"id": 123, name: "Test", avatar: "http://link", hiddenField: "can't see me!"});
 };
 
+export let postIndexValidation = {
+  "id": "/test",
+  "type": "object",
+  "properties": {
+    "postparam": {"type": "integer"}
+  }
+};
+
 export let postIndex = (req, res) => {
-  let validationRules = validator.isObject().withRequired('postparam', validator.isNumber());
-  validate(validationRules, req.body)
+  validation.validate(postIndexValidation, req.body, res)
     .then(
       () => {
         res.sendJson(req.app.get('config'));
       },
-      (err) => {
-        res.addError(422, 'validation_error', 'some_message');
-        res.addInvalidFields(err);
-        res.renderJson();
-      }
+      (err) => validation.defaultReject(err, res)
     );
 };

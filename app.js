@@ -41,7 +41,6 @@ app.use('', router);
 // Dev environment tooling
 if (app.get('config').get('env') === "sandbox") {
   console.log("This is 'sandbox' environment, starting dev tools.");
-  app.use(require('errorhandler')());
   app.use(logger('dev'));
 } else {
   let accessLogStream = fs.createWriteStream(__dirname + '/var/logs/access.log', {flags: 'a'});
@@ -49,11 +48,11 @@ if (app.get('config').get('env') === "sandbox") {
   // Integrate BugSnag error handling Middlewares
   app.use(bugsnag.requestHandler);
   app.use(bugsnag.errorHandler);
-
-  // Production Error Handler
-  app.use(function (err, req, res, next) {
-    res.sendJsonError(err.status, err.message);
-  });
 }
+
+// Production Error Handler
+app.use(function (err, req, res, next) {
+  res.sendJsonError(err.status, err.message);
+});
 
 export default app;

@@ -1,6 +1,7 @@
 import viewEngine from './APIViewEngine';
 
 export let responseStructure = (req, res, next) => {
+
   res.renderJson = (view, data, code) => {
     if (res.error.type) {
       res.sendJsonError(res.statusCode, res.error);

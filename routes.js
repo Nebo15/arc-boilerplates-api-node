@@ -13,6 +13,7 @@ router.all("*", contentType);
 
 router.get("/", oauth2.authorise(), indexMethods.getIndex);
 router.post("/", indexMethods.postIndex);
+router.post("/test", oauth2.authorise(), indexMethods.postIndex);
 
 router.post("/users/register", usersMethods.createUser);
 router.get("/users/logout", usersMethods.logoutUser);

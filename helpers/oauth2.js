@@ -5,5 +5,6 @@ import config from './../config/config';
 export let oauth2 = oauthserver({
   model: oauth2Model,
   grants: config.get('oauth2Grants'),
-  debug: true
+  debug: false,
+  passthroughErrors: true
 });
