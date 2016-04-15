@@ -1,5 +1,9 @@
+/**
+ * Middleware that checks that a Content-Type header is supported by our application.
+ */
+
 import config from './../config/config';
-//Content-type middleware for checking if current content-type is acceptable on the server
+
 export default (req, res, next) => {
   if (req.headers['content-type'] !== undefined) {
     let acceptable = false;

@@ -1,3 +1,10 @@
+/**
+ * Validation helper. We use a slightly extended http://json-schema.org/ to describe a request structure.
+ *
+ * It helps to describe request parameters and auto-generate docs by a simple schema object, keeping docs as
+ * close to a controller as possible.
+ */
+
 import {Validator} from 'jsonschema';
 
 export let defaultReject = (err, res) => {

@@ -1,5 +1,5 @@
 import newrelic from 'newrelic'; //do not remove this line, it starting newrelic
-import db from './helpers/db';
+import db from './datasources/mongoose';
 import express from 'express' ;
 import bodyParser from 'body-parser';
 import config from './config/config';

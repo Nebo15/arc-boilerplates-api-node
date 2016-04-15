@@ -5,10 +5,10 @@ export default {
   connect: () => {
     mongoose.connect(config.get('db').get('connection'));
     let db = mongoose.connection;
+
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function () {
-      // we're connected!
-      console.log("Connected correctly to server");
+      console.log("Mongoose: Connected correctly to MongoDB server");
     });
   }
 };

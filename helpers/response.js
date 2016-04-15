@@ -1,6 +1,21 @@
-import viewEngine from './APIViewEngine';
-import {gateResponseMutator} from './../helpers/gates';
+/**
+ * We override response structure to add some very useful helper function, like JSON View Controller,
+ * API versioning via gates and error enumeration.
+ *
+ * Also we are trying to keep all responses structured in a same way, so your API consumers will always need to parse
+ * exactly same structure whenever they parse response string.
+ *
+ * Additional methods:
+ * - sendJson - send JSON response and finish processing request.
+ * - sendError - send error to API consumer (should be one of ERRORS enumerators).
+ * - setError - set an response error, to send it later.
+ * - addInvalidField and addInvalidFields - add validator error message to a "meta.errors.invalid" list.
+ */
+
 import config from './../config/config';
+import {ERRORS} from './enums/errors'
+import {jsonViewController} from './viewController';
+import {gateResponseMutator} from './../helpers/gates';
 
 let views_dir = config.get('views').get('dir');
 let response_mutator = gateResponseMutator();
@@ -11,7 +26,7 @@ export let responseStructure = (req, res, next) => {
     if (res.error.type) {
       res.sendJsonError(res.statusCode, res.error);
     } else {
-      viewEngine(`${views_dir}/${view}.js`, data, (err, data) => {
+      jsonViewController(`${views_dir}/${view}.js`, data, (err, data) => {
         if (!err) {
           response_mutator(req, res, data, (err) => {
             res.sendJson(data, code);
@@ -35,6 +50,7 @@ export let responseStructure = (req, res, next) => {
   };
 
   res.sendJsonError = (code, error) => {
+    // use ERRORS here
     res.status(code || 200).json({
       "meta": {
         "code": code || 500,
