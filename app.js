@@ -10,6 +10,7 @@ import bugsnag from 'bugsnag';
 import router from './routes';
 import {oauth2} from './helpers/oauth2';
 import {responseStructure} from './helpers/response';
+import {gateRequestMiddleware} from './helpers/gates';
 
 // Init our APP
 let app = express();
@@ -34,6 +35,9 @@ app.use(oauth2.errorHandler());
 
 //Use correct response structure
 app.use(responseStructure);
+
+// Apply API request versioning gates
+app.use(gateRequestMiddleware());
 
 //Include controllers
 app.use('', router);
