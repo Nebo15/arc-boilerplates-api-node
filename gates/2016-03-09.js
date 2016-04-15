@@ -2,7 +2,7 @@ import {VersionGate} from './../helpers/gates';
 
 export default class Gate extends VersionGate {
   static requestMutator(req, cb) {
-    req.body.user_id = "1234";
+    req.body.user_id = "modified_id_1234";
     return cb(null);
   }
 
