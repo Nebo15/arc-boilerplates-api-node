@@ -5,7 +5,7 @@ import app from '../app';
  * Get port from environment and store in Express.
  */
 
-let port = app.get('config').get('server').port;
+let port = app.get('config').get('server').get('port');
 app.set('port', port);
 
 /**
