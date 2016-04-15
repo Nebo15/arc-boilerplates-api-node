@@ -2,9 +2,10 @@
 //https://github.com/newrelic/node-newrelic
 //Code from camelCase to underscore because we implement ES6 with CamelCase code style
 'use strict';
-import configuration from './config/config.js';
+import app_config from './config/config.js';
 
 export let config = {
-  app_name: configuration.get('newrelic').get('appName'),
-  license_key: configuration.get('newrelic').get('licenseKey')
+  agent_enabled: app_config.get('env') === "production",
+  app_name: app_config.get('newrelic').get('appName'),
+  license_key: app_config.get('newrelic').get('licenseKey')
 };
