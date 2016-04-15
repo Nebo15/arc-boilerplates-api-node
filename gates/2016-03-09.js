@@ -9,7 +9,6 @@ export default class Gate extends VersionGate {
   static responseMutator(data, cb) {
     data.user = data.name + "";
     delete data.name;
-    console.log(data);
     return cb(null);
   }
 }

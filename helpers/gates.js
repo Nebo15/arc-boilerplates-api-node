@@ -134,8 +134,6 @@ export function gateResponseMutator() {
       return g !== undefined;
     });
 
-    console.log(response_mutators);
-
     // Apply all mutators
     async.waterfall(response_mutators, (err) => {
       if(err) {
