@@ -56,8 +56,6 @@ function getActiveGates(base_version) {
   let latest_moment = moment(getLatestAPIVersion());
   let base_moment = moment(base_version);
 
-  console.log(base_version);
-
   let files = fs.readdirSync(gates_dir) || [];
   if(files && files.length > 0) {
     for (let i in files) {
@@ -68,7 +66,6 @@ function getActiveGates(base_version) {
 
       let gate_moment = moment(gate_name[0]);
 
-      console.log(gate_moment.format("YYYY-MM-DD"), latest_moment.format("YYYY-MM-DD"));
       if(gate_moment.isBetween(base_moment, latest_moment)) {
         gates_list.push(gate_name[0]);
       }
