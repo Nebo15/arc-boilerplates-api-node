@@ -13,12 +13,12 @@
  */
 
 import config from './../config/config';
-import {ERRORS} from './enums/errors'
+import {ERRORS} from './enums/errors';
 import {jsonViewController} from './viewController';
 import {gateResponseMutator} from './../helpers/gates';
 
-let views_dir = config.get('views').get('dir');
-let response_mutator = gateResponseMutator();
+let viewsDir = config.get('views').get('dir');
+let responseMutator = gateResponseMutator();
 
 export let responseStructure = (req, res, next) => {
 
@@ -26,9 +26,9 @@ export let responseStructure = (req, res, next) => {
     if (res.error.type) {
       res.sendJsonError(res.statusCode, res.error);
     } else {
-      jsonViewController(`${views_dir}/${view}.js`, data, (err, data) => {
+      jsonViewController(`${viewsDir}/${view}.js`, data, (err, data) => {
         if (!err) {
-          response_mutator(req, res, data, (err) => {
+          responseMutator(req, res, data, (err) => {
             res.sendJson(data, code);
           });
         }

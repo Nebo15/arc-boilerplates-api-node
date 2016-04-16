@@ -10,15 +10,15 @@
 
 import fs from 'fs';
 
-export function jsonViewController(filePath, options, callback) {
+export let jsonViewController = (filePath, options, callback) => {
   fs.access(filePath, fs.R_OK, (err) => {
-    if(err) {
+    if (err) {
       return callback(err);
     }
 
     let viewer = require(filePath).default;
 
-    if(!viewer && typeof viewer !== 'function') {
+    if (!viewer && typeof viewer !== 'function') {
       return callback(new Error(`Can't parse view controller '${filePath}'.`));
     }
 

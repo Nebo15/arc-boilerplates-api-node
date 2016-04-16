@@ -23,7 +23,10 @@
     "new-cap": 0,
     "no-shadow": 0,
     "consistent-return": 0,
-    "prefer-arrow-callback": 0
-
+    "prefer-arrow-callback": 0,
+    "camelcase" : 0,
+    "no-nested-ternary": 0,
+    "max-statements": ["error", 20, {"ignoreTopLevelFunctions": true}],
+    "no-use-before-define": 0
   }
 }

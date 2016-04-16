@@ -15,7 +15,7 @@ export let defaultReject = (err, res) => {
 
 export let validate = (rules, fields, res) => {
   return new Promise((resolve, reject) => {
-    let v = new Validator;
+    let v = new Validator();
     let validationResult = v.validate(fields, rules);
     if (validationResult.errors.length > 0) {
       reject(validationResult);
