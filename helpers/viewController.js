@@ -10,7 +10,7 @@
 
 import fs from 'fs';
 
-export function jsonViewController(filePath, options, callback) {
+export function jsonViewController(filePath, data, callback) {
   fs.access(filePath, fs.R_OK, (err) => {
     if(err) {
       return callback(err);
@@ -22,6 +22,10 @@ export function jsonViewController(filePath, options, callback) {
       return callback(new Error(`Can't parse view controller '${filePath}'.`));
     }
 
-    return callback(null, viewer(options));
+    return callback(null, viewer(data));
   });
 };
+
+export function renderView(renderFunction, view, data, cb) {
+  return renderFunction(view, data, cb);
+}

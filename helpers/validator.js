@@ -24,3 +24,17 @@ export let validate = (rules, fields, res) => {
     }
   });
 };
+
+export function promiseSchemeValidation(data, scheme) {
+  data = data || {};
+
+  return new Promise((resolve, reject) => {
+    let v = new Validator;
+    let validationResult = v.validate(data, scheme);
+    if (validationResult.valid) {
+      return resolve();
+    }
+
+    return reject(validationResult);
+  });
+}

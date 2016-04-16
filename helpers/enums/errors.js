@@ -16,5 +16,10 @@ export const ERRORS = {
     message: "Incorrect content type",
     link: "Docs: https://example.com/#content-types",
     code: 415
+  },
+  "REQUEST_INVALID": {
+    message: "Data is invalid",
+    link: "Docs: https://example.com/#validation-rules",
+    code: 422
   }
 };
