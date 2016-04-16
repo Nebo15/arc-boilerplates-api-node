@@ -1,12 +1,22 @@
 import {renderView, jsonViewController} from './viewController';
 import {ERRORS} from './enums/errors';
-import promiseSchemeValidation from 'validator';
+import promiseSchemeValidation from './schemeValidator';
+import {gateResponseMutator} from './gates';
 
-class baseController {
-  static onReqest(req, res, next) {
+export class baseController {
+  static handler(req, res, next) {
+    console.log(this);
     let controller = new this(req, res, next);
     return controller.validate(req, res, next);
   }
+
+  // constructor(req, res, next) {
+  //   this.req = req;
+  //   this.res = res;
+  //   this.next = next;
+
+  //   return controller.validate();
+  // }
 
   getRequestScheme() {
     return null;
@@ -21,20 +31,24 @@ class baseController {
         .catch((err) => this.onInvalid(err, res));
     }
 
-    return this.handle(req, res);
+    return this.onValid(req, res);
   }
 
   onInvalid(err, res) {
-    res.setError(ERRORS.REQUEST_INVALID);
     res.addInvalidFields(err);
-    res.sendError();
+    res.sendError(ERRORS.REQUEST_INVALID);
   }
 
   onValid() {
     throw new "Undeclared controller function";
   }
 
-  render(view, data, cb) {
-    return renderView(jsonViewController, view, data, cb);
+  render(req, res, view, data, cb) {
+    let response_mutator = gateResponseMutator();
+    return renderView(jsonViewController, view, data, () => {
+      response_mutator(req, res, data, (err) => {
+        cb()
+      });
+    });
   }
 }

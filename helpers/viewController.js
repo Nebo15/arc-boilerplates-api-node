@@ -26,6 +26,6 @@ export function jsonViewController(filePath, data, callback) {
   });
 };
 
-export function renderView(renderFunction, view, data, cb) {
-  return renderFunction(view, data, cb);
+export function renderView(renderFunction, view, data, callback) {
+  return renderFunction(view, data, callback);
 }
