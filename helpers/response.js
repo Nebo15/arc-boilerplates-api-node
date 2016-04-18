@@ -12,7 +12,7 @@
  * - addInvalidField and addInvalidFields - add validator error message to a "meta.errors.invalid" list.
  */
 
-import config from './../config/config';
+import config from './../settings/config';
 import {ERRORS} from './enums/errors';
 import {jsonViewController} from './viewController';
 import {gateResponseMutator} from './../helpers/gates';

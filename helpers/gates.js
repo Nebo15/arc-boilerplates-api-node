@@ -15,7 +15,7 @@
 
 import fs from 'fs';
 import moment from 'moment';
-import config from './../config/config';
+import config from './../settings/config';
 import async from 'async';
 
 // Cache FS operations

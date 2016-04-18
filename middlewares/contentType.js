@@ -2,7 +2,7 @@
  * Middleware that checks that a Content-Type header is supported by our application.
  */
 
-import config from './../config/config';
+import config from './../settings/config';
 
 export default (req, res, next) => {
   if (req.headers['content-type'] !== undefined) {
