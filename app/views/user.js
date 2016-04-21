@@ -1,4 +1,4 @@
-import exportObjectFields from '../helpers/exportObjectFields';
+import exportObjectFields from './../../helpers/exportObjectFields';
 
 export let viewStructure = {
   id: {

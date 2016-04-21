@@ -7,8 +7,9 @@ import lusca from 'lusca';
 import fs from 'fs';
 import logger from 'morgan';
 import bugsnag from 'bugsnag';
-import router from './routes';
-import {oauth2} from './helpers/oauth2';
+import router from './app/routes';
+//Temporary comment, remove after arc-authorization
+// import {oauth2} from './helpers/oauth2';
 import {responseStructure} from './helpers/response';
 import {gateRequestMiddleware} from './helpers/gates';
 
@@ -31,7 +32,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 
-app.use(oauth2.errorHandler());
+//Temporary comment, remove after arc-authorization
+// app.use(oauth2.errorHandler());
 
 //Use correct response structure
 app.use(responseStructure);

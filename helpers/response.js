@@ -41,9 +41,9 @@ export let responseStructure = (req, res, next) => {
   };
 
   res.sendJson = (data, code) => {
-    return res.status(code || 200).json({
+    return res.status(code || ERRORS.OK.code).json({
       "meta": {
-        "code": code || 200
+        "code": code || ERRORS.OK.code
       },
       data
     });
@@ -51,9 +51,9 @@ export let responseStructure = (req, res, next) => {
 
   res.sendJsonError = (code, error) => {
     // use ERRORS here
-    res.status(code || 200).json({
+    res.status(code || ERRORS.OK.code).json({
       "meta": {
-        "code": code || 500,
+        "code": code || ERRORS.SERVER_ERROR.code,
         error
       },
       "data": {}

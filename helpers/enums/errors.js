@@ -7,6 +7,41 @@
  */
 
 export const ERRORS = {
+  "OK": {
+    message: "OK",
+    link: "Docs: https://example.com/#error-codes",
+    code: 200
+  },
+  "CREATED": {
+    message: "Created",
+    link: "Docs: https://example.com/#error-codes",
+    code: 201
+  },
+  "NOT_MODIFIED": {
+    message: "Not modified",
+    link: "Docs: https://example.com/#error-codes",
+    code: 304
+  },
+  "BAD_REQUEST": {
+    message: "Bad request",
+    link: "Docs: https://example.com/#error-codes",
+    code: 400
+  },
+  "UNAUTHORIZED": {
+    message: "Unauthorized",
+    link: "Docs: https://example.com/#error-codes",
+    code: 401
+  },
+  "NOT_FOUND": {
+    message: "Not Found",
+    link: "Docs: https://example.com/#error-codes",
+    code: 404
+  },
+  "UNPROCESSABLE_ENTITY": {
+    message: "Unprocessable Entity",
+    link: "Docs: https://example.com/#error-codes",
+    code: 422
+  },
   "SERVER_ERROR": {
     message: "You have faced a general server error. We are aware of this problem and working to fix it.",
     link: "Docs: https://example.com/#error-codes",

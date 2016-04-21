@@ -1,5 +1,5 @@
 import oauthserver from 'oauth2-server';
-import * as oauth2Model from './../models/oauth2';
+import * as oauth2Model from '../app/models/oauth2';
 import config from './../settings/config';
 
 export let oauth2 = oauthserver({

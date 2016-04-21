@@ -21,14 +21,14 @@ let OAuthClientsModel = mongoose.model('OAuthClients');
 export let getAccessToken = (bearerToken, callback) => {
   console.log('in getAccessToken (bearerToken: ' + bearerToken + ')');
   OAuthTokensModel.findOne({token: bearerToken, tokenType: 'access'})
-    .exec(function (err, token) {
+    .exec((err, token) => {
       callback(err, token);
     });
 };
 
 export let getClient = (clientId, clientSecret, callback) => {
   OAuthClientsModel.findOne({clientId, clientSecret})
-    .exec(function (err, client) {
+    .exec((err, client) => {
       callback(err, client);
     });
 };
@@ -41,7 +41,7 @@ export let grantTypeAllowed = (clientId, grantType, callback) => {
 export let getRefreshToken = (refreshToken, callback) => {
   console.log('in getRefreshToken (refreshToken: ' + refreshToken + ')');
   OAuthTokensModel.findOne({token: refreshToken, tokenType: 'refresh'})
-    .exec(function (err, token) {
+    .exec((err, token) => {
       callback(err, token);
     });
 };

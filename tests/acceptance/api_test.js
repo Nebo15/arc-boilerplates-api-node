@@ -13,11 +13,8 @@ describe('app', () => {
   let httpServer = http.createServer(app);
   before((done) => {
     httpServer.listen(port, (err, res) => {
-      if (err) {
-        done(err);
-      } else {
-        done();
-      }
+      console.log(err);
+      done(err);
     });
   });
 
@@ -39,9 +36,9 @@ describe('app', () => {
   });
 
   it('check response from index', (done) => {
-    request.get(makeUrl('/'), function (err, response, body) {
+    request.get(makeUrl('/'), (err, response, body) => {
       response.statusCode.should.eql(200);
-      let data = JSON.parse(body);
+      let data = JSON.parse(body).data;
       data.should.have.property("id", 123);
       data.should.have.property("name", "Test");
       data.should.have.property("avatar", "http://link");

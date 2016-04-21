@@ -1,4 +1,4 @@
-import * as validation from '../helpers/validator';
+import * as validation from './../../helpers/validator';
 
 export let getIndex = (req, res) => {
   res.renderJson('user', {"id": req.body.user_id ? req.body.user_id : 123, name: "Test", avatar: "http://link", hiddenField: "can't see me!"});

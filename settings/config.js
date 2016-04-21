@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 var config = {
   env: "sandbox",
   views: {
-    dir: __dirname + '/../views'
+    dir: __dirname + '/../app/views'
   },
   server: {
     port: process.env.PORT || 3000
@@ -24,7 +24,7 @@ var config = {
   },
   gates: {
     versionHeader: "X-API-Version",
-    dir: __dirname + "/../gates"
+    dir: __dirname + "/../app/gates"
   },
   db: {
     connection: 'mongodb://localhost:27017/test'
