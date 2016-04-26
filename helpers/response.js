@@ -40,11 +40,23 @@ export let responseStructure = (req, res, next) => {
     res.sendJson(data, code);
   };
 
+  res.addPaginate = (data) => {
+    res.paging = {
+      limit: data.limit.value,
+      cursors: {
+        after: data.startingAfter.value,
+        before: data.endingBefore.value
+      },
+      has_more: true
+    };
+  };
+
   res.sendJson = (data, code) => {
     return res.status(code || ERRORS.OK.code).json({
       "meta": {
         "code": code || ERRORS.OK.code
       },
+      paging: res.paging,
       data
     });
   };
@@ -80,6 +92,8 @@ export let responseStructure = (req, res, next) => {
     invalid: [],
     message: null
   };
+
+  res.paging = null;
 
   return next();
 };

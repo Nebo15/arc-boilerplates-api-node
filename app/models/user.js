@@ -12,7 +12,8 @@ let User = new mongoose.Schema({
 });
 
 User.plugin(passportLocalMongoose);
-export let userModel = mongoose.model('User', User);
+let userModel = mongoose.model('User', User);
+export let model = userModel;
 
 export let getUserOauth2 = (username, password, callback) => {
   console.log('in getUser (username: ' + username + ', password: ' + password + ')');

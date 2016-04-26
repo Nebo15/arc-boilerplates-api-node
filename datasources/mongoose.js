@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 import config from './../settings/config';
+import paginate from './../helpers/paginate';
+
+mongoose.Query.prototype.paginate = paginate;
 
 export default {
   connect: () => {

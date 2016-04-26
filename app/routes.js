@@ -18,5 +18,6 @@ router.post("/test", indexMethods.postIndex);
 
 router.post("/users/register", usersMethods.createUser);
 router.get("/users/logout", usersMethods.logoutUser);
+router.get("/users/", usersMethods.getUsers);
 
 export default router;

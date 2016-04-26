@@ -4,8 +4,8 @@
   "description": "Node.js (Express.js + MongoDB boilerplate) for Arkenstone \"arc\" cli tool.",
   "main": "app.js",
   "scripts": {
-    "start": "node ./node_modules/nodemon/bin/nodemon --exec babel-node --presets=es2015 -- ./bin/www.js",
-    "sniffer": "node ./node_modules/eslint/bin/eslint config/ app.js controllers datasources gates helpers middlewares models tests views",
+    "start": " ./node_modules/nodemon/bin/nodemon.js -L --exec babel-node --presets=es2015 -- ./bin/www.js",
+    "sniffer": "./node_modules/eslint/bin/eslint.js config/ app.js controllers datasources gates helpers middlewares models tests views",
     "test": "./node_modules/.bin/mocha --require babel-core/register tests/**"
   },
   "keywords": [

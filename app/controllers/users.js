@@ -22,3 +22,11 @@ export let logoutUser = (req, res) => {
     status: 'Bye!'
   });
 };
+
+export let getUsers = (req, res) => {
+  let query = user.model.find({});
+  query.paginate(req, function(err, result) {
+    res.addPaginate(result.paginate);
+    res.sendJson(result.models);
+  });
+};
