@@ -45,14 +45,14 @@
     "request": "^2.70.0"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.2",
-    "eslint": "^2.7.0",
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.17.1",
     "eslint-config-defaults": "^9.0.0",
-    "eslint-plugin-filenames": "^0.2.0",
+    "eslint-plugin-filenames": "^1.1.0",
     "lodash": "^4.8.2",
-    "mocha": "^2.2.4",
+    "mocha": "^3.2.0",
     "nodemon": "^1.9.1",
-    "should": "^6.0.1"
+    "should": "^11.2.1"
   },
   "babel": {
     "presets": [
