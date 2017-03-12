@@ -1,5 +1,7 @@
 # Arkenstone Node.js API Boilerplate
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Nebo15/arc-boilerplates-api-node.svg)](https://greenkeeper.io/)
+
 Node.js (Express.js + MongoDB boilerplate) for Arkenstone "arc" cli tool.
 
 ## What is this?
